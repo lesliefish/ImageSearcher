@@ -5,6 +5,6 @@
 
 ## 客户端 Qt编写客户端
 
-## 通信方式Tcp socket通信
+## 通信方式 Tcp socket通信
 
 ## 待补充
