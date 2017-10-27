@@ -1,0 +1,218 @@
+QWidget#m_mainWidget
+{
+    border: 1px solid #999999;
+    border-radius: 0px;
+    /*background:#FFFFFF;*/
+    border-image:url(:/background/images/background.png) 10 10 10 10;
+}
+
+QWidget#m_titleWidget
+{
+    background:#333333;
+}
+
+QWidget#m_choosedImageWidget
+{
+    border: none;
+    border-radius: 0px;
+        background-image:url(:/background/images/uploadimage.png);
+    background-repeat:no-repeat;
+    background-position:center;
+    background-attachment:scroll;
+}
+
+QWidget#m_resultWidget
+{
+    border: 1px solid #999999;
+    border-radius: 0px;
+    background:transparent;
+}
+
+
+QWidget#m_btnWidget
+{
+    border: 1px solid #999999;
+    border-radius: 0px;
+    background:transparent;
+}
+QComboBox
+{
+    border:1px solid #333333;
+    border-radius: 5px;
+    color:black;
+    background:#666666;
+    font: 12px;
+    /*min-width: 6em;*/
+    font-family:微软雅黑;
+}
+
+QPushButton
+{
+    border-radius: 5px;
+    color:black;
+    background:transparent;
+    font: 12px;
+    /*min-width: 6em;*/
+    padding: 6px;
+    font-family:微软雅黑;
+}
+
+QPushButton#m_closeBtn
+{
+color: #999999;
+border-radius:1px;
+font: bold 9px;
+padding: 6px;
+background-image:url(:/Title/Button/images/close.png);
+background-repeat:no-repeat;
+background-position:center;
+}
+QPushButton#m_closeBtn:hover
+{
+background:red;
+background-image:url(:/Title/Button/images/close.png);
+background-repeat:no-repeat;
+background-position:center;
+}
+
+QPushButton#m_helpBtn
+{
+color: #999999;
+border-radius:1px;
+font: bold 9px;
+padding: 6px;
+background-image:url(:/Title/Button/images/help.png);
+background-repeat:no-repeat;
+background-position:center;
+}
+QPushButton#m_helpBtn:hover
+{
+background:#999999;
+background-image:url(:/Title/Button/images/help.png);
+background-repeat:no-repeat;
+background-position:center;
+border-style:solid;
+border-width:1px;
+border-color:#388BFF;
+}
+
+
+QPushButton#m_chooseImageBtn
+{
+color:white;
+background:transparent;
+border-style:solid;
+border-width:1px;
+border-color:#999999;
+}
+/*————————————————开始搜索按钮——————————————————————————*/
+QPushButton#m_startSearchBtn
+{
+color:white;
+background:transparent;
+background-repeat:no-repeat;
+background-position:center;
+border-style:solid;
+border-width:1px;
+border-color:#999999;
+}
+
+QPushButton#m_startSearchBtn:hover
+{
+background:red;
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+}
+
+QPushButton#m_createIndexBtn
+{
+color:white;
+background:transparent;
+background-repeat:no-repeat;
+background-position:center;
+border-style:solid;
+border-width:1px;
+border-color:#999999;
+}
+
+QPushButton#m_createIndexBtn:hover
+{
+background:red;
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+}
+
+QPushButton#m_minBtn
+{
+border-radius:1px;
+font: bold 9px;
+padding: 6px;
+background-image:url(:/Title/Button/images/min.png);
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+}
+
+QPushButton#m_minBtn:hover
+{
+background:#999999;
+background-image:url(:/Title/Button/images/min.png);
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+}
+
+QPushButton#m_maxBtn
+{
+border:none;
+border-radius:1px;
+font: bold 14px;
+background-image:url(:/Title/Button/images/max.png);
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+background-clip:padding;
+}
+
+QPushButton#m_maxBtn:hover
+{
+background:#999999;
+background-image:url(:/Title/Button/images/max.png);
+background-repeat:no-repeat;
+background-position:center;
+background-attachment:fixed;
+}
+
+QPushButton#m_appNameBtn
+{
+color: white;
+border-radius:1px;
+font: 12px;
+padding: 6px;
+}
+
+QWidget#m_warningDlg
+{
+background:red;
+}
+
+QWidget#m_aboutDlg
+{
+background:red;
+color: #e6e6e6;
+border-radius:1px;
+}
+
+QTableWidget
+{
+border:none;
+background:transparent;
+}
+
+QLabel
+{
+color:white;
+font-family:Microsoft YaHei;
+}
