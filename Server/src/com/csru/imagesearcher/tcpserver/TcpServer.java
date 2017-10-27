@@ -44,7 +44,7 @@ class WorkThread extends Thread{
 			BufferedWriter outbuf = new BufferedWriter(new OutputStreamWriter(tclient.getOutputStream()));
 			BufferedReader inbuf = new BufferedReader(new InputStreamReader(tclient.getInputStream()));
 			String recvMsg = inbuf.readLine();//读取接受客户端的数据
-			String[] recvDataStr = recvMsg.split("CSRU");
+			String[] recvDataStr = recvMsg.split("CSU");
 
 			String action = recvDataStr[0];
 													
@@ -94,11 +94,12 @@ class WorkThread extends Thread{
 					break;
 				}
 				Searcher mySearcher = new Searcher();
-				mySearcher.DoSearch(imgPath, searchDependsType, 36);
+				//开始搜索，默认搜索60幅图像
+				mySearcher.DoSearch(imgPath, searchDependsType, 60);
 				
 				String str = "";
 				for(int i=0; i< Searcher.imgList.size();i++){
-					str+=Searcher.imgList.get(i)+"CSRU";
+					str+=Searcher.imgList.get(i)+"CSU";
 				}
 				System.out.println("Send String is: " + str);
 				outbuf.write(str);
