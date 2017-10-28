@@ -25,6 +25,13 @@ MainWindow::~MainWindow()
     m_pSocket->disconnected();
 }
 
+/**
+ *  @brief  初始化界面
+ *  @name
+ *  @author lesliefish
+ *  @param  none
+ *  @return
+ */
 void MainWindow::InitUI()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -50,6 +57,13 @@ void MainWindow::InitUI()
     }
 }
 
+/**
+ *  @brief  初始化连接
+ *  @name
+ *  @author lesliefish
+ *  @param  none
+ *  @return
+ */
 void MainWindow::InitConnect()
 {
     connect(ui->m_helpBtn, &QPushButton::clicked, [=](){m_aboutDlg.exec();});
@@ -91,6 +105,13 @@ void MainWindow::InitConnect()
     connect(m_pSocket, &QAbstractSocket::readyRead, [=](){ReadMessage();});
 }
 
+/**
+ *  @brief 打开一个本地图像文件
+ *  @name
+ *  @author lesliefish
+ *  @param  none
+ *  @return 成功返回true,失败返回false
+ */
 bool MainWindow::OpenImageFile()
 {
     m_openedFilePath = QFileDialog::getOpenFileName(this,
@@ -104,6 +125,13 @@ bool MainWindow::OpenImageFile()
     return true;
 }
 
+/**
+ *  @brief  向服务端发送索引或者检索请求
+ *  @name
+ *  @author lesliefish
+ *  @param
+ *  @return
+ */
 void MainWindow::SendRequest(QString& strAction, QString& filepath, QString& depends)
 {
     m_pSocket->connectToHost("127.0.0.1", 12345);
@@ -117,10 +145,19 @@ void MainWindow::SendRequest(QString& strAction, QString& filepath, QString& dep
     }
 }
 
+/**
+ *  @brief  接受服务端发来的数据
+ *  @name
+ *  @author lesliefish
+ *  @param
+ *  @return
+ */
 void MainWindow::ReadMessage()
 {
     QString strImagesPath(m_pSocket->readAll());
+    m_pSocket->disconnected();
 
+    //索引结果处理
     if(strImagesPath.trimmed() == "Index over!")
     {
             ui->m_createIndexBtn->setText(tr("索引完毕！"));
@@ -128,19 +165,25 @@ void MainWindow::ReadMessage()
             return;
     }
 
+    //搜索结果处理
     qDebug() << strImagesPath << endl;
     ShowResult(strImagesPath);
 }
 
+
+/**
+ *  @brief  显示检索结果
+ *  @name
+ *  @author lesliefish
+ *  @param strPath 返回结果的图像数据集的路径
+ *  @return
+ */
 void MainWindow::ShowResult(const QString& strPath)
 {
     QStringList filepathList = strPath.split("CSU");
     filepathList.removeLast();//去掉最后的换行空白
+    //第k幅图像
     int k = 0;
-    qDebug() << filepathList.size();
-    qDebug() << filepathList[k];
-
-
     for(int i = 0; i < ui->m_showTableWidget->rowCount(); i++)
     {
         for(int j = 0; j < ui->m_showTableWidget->columnCount(); j++)
@@ -157,6 +200,13 @@ void MainWindow::ShowResult(const QString& strPath)
     }
 }
 
+/**
+ *  @brief  显示本地图片到窗口上
+ *  @name
+ *  @author lesliefish
+ *  @param path 文件路径
+ *  @return
+ */
 void MainWindow::ShowChoosedImage(const QString& path)
 {
     ui->m_choosedImageWidget->setStyleSheet("QWidget{border-image: url(" + path + ")}");

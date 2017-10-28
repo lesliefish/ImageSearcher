@@ -39,8 +39,8 @@ QComboBox
 {
     border:1px solid #333333;
     border-radius: 5px;
-    color:black;
-    background:#666666;
+    color:#EEEEEE;
+    background:transparent;
     font: 12px;
     /*min-width: 6em;*/
     font-family:微软雅黑;
@@ -215,4 +215,36 @@ QLabel
 {
 color:white;
 font-family:Microsoft YaHei;
+}
+
+QScrollBar:vertical{
+width:12px;
+border:1px solid rgba(0,0,0,50);
+margin:0px,0px,0px,0px;
+padding-top:15px;
+padding-bottom:15px;
+background:transparent;
+}
+QScrollBar::handle:vertical{
+width:16px;
+background:rgba(0,0,0,25%);
+min-height:20;
+}
+QScrollBar::handle:vertical:hover{
+background:rgba(0,0,0,50%);
+border:0px rgba(0,0,0,25%);
+}
+QScrollBar::sub-line:vertical{
+height:15px;
+border-image:url(:/Res/scroll_up.png);
+subcontrol-position:top;
+}
+QScrollBar::sub-line:vertical:hover{
+height:15px;
+background:rgba(0,0,0,25%);
+subcontrol-position:top;
+}
+QScrollBar::add-line:vertical{
+height:15px;
+subcontrol-position:bottom;
 }
