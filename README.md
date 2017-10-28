@@ -1,5 +1,9 @@
 # ImageSearcher
 基于LIRE搭建的图像检索
+<br>
+1、主界面 <br>
+  ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/1.png)
+  <br>  <br>
 
 ## 服务端 
 Java编写
