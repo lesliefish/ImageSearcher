@@ -1,7 +1,5 @@
   # ImageSearcher
 基于LIRE搭建的图像检索
-
-## 项目简介
   <br>
   1、主界面 <br>
     ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/1.png)
