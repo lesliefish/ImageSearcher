@@ -215,23 +215,23 @@ public class Indexer {
     public boolean IndexAll(String imagePath) throws IOException{
 		Indexer myIndexer = new Indexer();
 		myIndexer.DoIndex(imagePath, SearchDependsType.CEDD);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.FuzzyColorHistogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.AutoColorCorrelogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.BinaryPatternsPyramid);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.ColorLayout);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.EdgeHistogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.FCTH);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.Gabor);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.JCD);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.JpegCoefficientHistogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.LocalBinaryPatterns);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.LuminanceLayout);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.OpponentHistogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.PHOG);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.RotationInvariantLocalBinaryPatterns);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.ScalableColor);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.SimpleColorHistogram);
-//		myIndexer.DoIndex(imagePath, SearchDependsType.Tamura);	
+		myIndexer.DoIndex(imagePath, SearchDependsType.FuzzyColorHistogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.AutoColorCorrelogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.BinaryPatternsPyramid);
+		myIndexer.DoIndex(imagePath, SearchDependsType.ColorLayout);
+		myIndexer.DoIndex(imagePath, SearchDependsType.EdgeHistogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.FCTH);
+		myIndexer.DoIndex(imagePath, SearchDependsType.Gabor);
+		myIndexer.DoIndex(imagePath, SearchDependsType.JCD);
+		myIndexer.DoIndex(imagePath, SearchDependsType.JpegCoefficientHistogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.LocalBinaryPatterns);
+		myIndexer.DoIndex(imagePath, SearchDependsType.LuminanceLayout);
+		myIndexer.DoIndex(imagePath, SearchDependsType.OpponentHistogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.PHOG);
+		myIndexer.DoIndex(imagePath, SearchDependsType.RotationInvariantLocalBinaryPatterns);
+		myIndexer.DoIndex(imagePath, SearchDependsType.ScalableColor);
+		myIndexer.DoIndex(imagePath, SearchDependsType.SimpleColorHistogram);
+		myIndexer.DoIndex(imagePath, SearchDependsType.Tamura);	
 		
 		return true;
     }
