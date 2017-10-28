@@ -1,7 +1,7 @@
 # ImageSearcher
 基于LIRE搭建的图像检索
 
-##项目简介
+## 项目简介
 
 <br>
 1、主界面 <br>
