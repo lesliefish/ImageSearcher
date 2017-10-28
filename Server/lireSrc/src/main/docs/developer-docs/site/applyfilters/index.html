@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="http://www.semanticmetadata.net/applyfilters/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Applying Filters - LIRE Documentation</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-576792-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">LIRE Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../lirefaq">FAQ</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../createindex">Create Index</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../searchindex">Search</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../simple">SIMPLE Local Features</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../autocolorcorrelation">AutoColorCorrelogram</a>
+                            </li>
+                        
+                            <li class="active">
+                                <a href=".">Applying Filters</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../builders">Builders</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../aggregators">Aggregators</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../features">Features</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../lireinternals">LIRE Internals</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../imageread">Image Handling</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                
+                <li >
+                    <a rel="next" href="../autocolorcorrelation">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../builders">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#filters">Filters</a></li>
+        
+            <li><a href="#using-a-different-feature">Using a different feature</a></li>
+        
+            <li><a href="#using-lsa">Using LSA</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="filters">Filters</h1>
+<p>Basically Lire allows you to create a ranked list of results based on some similarity metric along with a low level image feature. However, some times you need a filtering or re-ranking process to take place afterwards. Common use cases are if Lire search is applied to a large database on a fast but not very precise feature (e.g. hashing) and the resulting list has to be re-ranked accoring to a global feature. Re-ranking can also employ extended analysis method like [[http://en.wikipedia.org/wiki/Latent_semantic_analysis|LSA]] (latent semantic analysis).</p>
+<h2 id="using-a-different-feature">Using a different feature</h2>
+<pre><code>public void testRerankFilter() throws IOException {
+    // search
+    System.out.println("---&lt; searching &gt;-------------------------");
+    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
+    Document document = reader.document(0);
+    ImageSearcher searcher = new GenericFastImageSearcher(100, AutoColorCorrelogram.class, true, reader);
+    ImageSearchHits hits = searcher.search(document, reader);
+    // rerank
+    System.out.println("---&lt; filtering &gt;-------------------------");
+    RerankFilter filter = new RerankFilter(ColorLayout.class, DocumentBuilder.FIELD_NAME_COLORLAYOUT);
+    hits = filter.filter(hits, reader, document);
+
+    // output
+    FileUtils.saveImageResultsToHtml("filtertest", hits, document.getValues(DocumentBuilder.FIELD_NAME_IDENTIFIER)[0], reader);
+}
+</code></pre>
+<h2 id="using-lsa">Using LSA</h2>
+<pre><code>public void testLsaFilter() throws IOException {
+    // search
+    System.out.println("---&lt; searching &gt;-------------------------");
+    IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
+    Document document = reader.document(0);
+    ImageSearcher searcher = new GenericFastImageSearcher(100, AutoColorCorrelogram.class, true, reader);
+    ImageSearchHits hits = searcher.search(document, reader);
+    // rerank
+    System.out.println("---&lt; filtering &gt;-------------------------");
+    LsaFilter filter = new LsaFilter(CEDD.class, DocumentBuilder.FIELD_NAME_CEDD);
+    hits = filter.filter(hits, reader, document);
+
+    // output
+    FileUtils.saveImageResultsToHtml("filtertest", hits, document.getValues(DocumentBuilder.FIELD_NAME_IDENTIFIER)[0], reader);
+}
+</code></pre>
+</div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Copyright &copy; 2015, Mathias Lux and Nektarios Anagnostopoulos.</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

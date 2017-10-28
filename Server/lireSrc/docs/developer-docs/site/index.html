@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="http://www.semanticmetadata.net/">
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+        <title>LIRE Documentation</title>
+
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-576792-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        
+    </head>
+
+    <body class="homepage">
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">LIRE Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="lirefaq/">FAQ</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="createindex/">Create Index</a>
+                            </li>
+                        
+                            <li >
+                                <a href="searchindex/">Search</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="simple/">SIMPLE Local Features</a>
+                            </li>
+                        
+                            <li >
+                                <a href="autocolorcorrelation/">AutoColorCorrelogram</a>
+                            </li>
+                        
+                            <li >
+                                <a href="applyfilters/">Applying Filters</a>
+                            </li>
+                        
+                            <li >
+                                <a href="builders/">Builders</a>
+                            </li>
+                        
+                            <li >
+                                <a href="aggregators/">Aggregators</a>
+                            </li>
+                        
+                            <li >
+                                <a href="features/">Features</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="lireinternals/">LIRE Internals</a>
+                            </li>
+                        
+                            <li >
+                                <a href="imageread/">Image Handling</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                
+                <li class="disabled">
+                    <a rel="next" >
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="lirefaq/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#lire-lucene-image-retrieval">Lire - Lucene Image REtrieval</a></li>
+        
+            <li><a href="#how-does-lire-actually-work">How does Lire actually work?</a></li>
+        
+            <li><a href="#performance">Performance</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="lire-lucene-image-retrieval">Lire - Lucene Image REtrieval</h1>
+<p>The LIRE (Lucene Image REtrieval) library a simple way to create a Lucene index of image features for content based 
+image retrieval (CBIR). There is no complete list of features, but these are some of them:</p>
+<ul>
+<li>ScalableColor, ColorLayout and EdgeHistogram <a href="http://mpeg.chiariglione.org/standards/mpeg-7/mpeg-7.htm">MPEG-7</a></li>
+<li>CEDD and FCTH (contributed by <a href="http://savvash.blogspot.com/">Savvas Chatzichristofis</a>)</li>
+<li>Color histograms (HSV and RGB), Tamura &amp; Gabor, auto color correlogram, JPEG coefficient histogram (common global descriptors)</li>
+<li>Visual words based on <a href="http://en.wikipedia.org/wiki/Scale-invariant_feature_transform">SIFT</a> and <a href="http://en.wikipedia.org/wiki/SURF">SURF</a></li>
+<li>Visual words based on <a href="simple/">SIMPLE</a></li>
+<li>Approximate fast search based on hashing and metric indexing.</li>
+</ul>
+<p>Furthermore, methods for searching the index based on <a href="http://lucene.apache.org">Lucene</a> are provided.</p>
+<p>The LIRE library started out as part of the Caliph &amp; Emir project and aimed to provide the CBIR features of Caliph &amp; Emir 
+to other Java projects in an easy and light weight way. In the meantime it has turned out as big and interesting project itself.</p>
+<p>With Lire you can easily <a href="createindex/">create an index</a> and <a href="searchindex/">search through the index</a>. LIRE 1.0 also supports local features based on bag of visual words and the SIMPLE approach, see <a href="builders/">Builders</a>.</p>
+<ul>
+<li>How to <a href="createindex/">create an index</a> with Lire?</li>
+<li>How to <a href="searchindex/">search through the index</a> with Lire?</li>
+<li><a href="lirefaq/">Frequently Asked Questions</a></li>
+</ul>
+<p>I recommend to start with taking a look at the <a href="https://github.com/dermotte/LIRE/tree/master/samples/simpleapplication">SimpleApplication</a>
+package of LIRE, which covers the most needed stuff including indexing, search and extraction of image features for use 
+in other applications. It's also a good idea to work on the current SVN version of LIRE:
+<a href="https://www.youtube.com/watch?v=vG_yvB_UfAU&amp;list=PLkb7TymgoWW4zfjepAmYNz03ABDQWGHfl">How to check out and set up LIRE in the IDEA IDE</a>.</p>
+<p>Note at this point that LIRE comes with Apache Ant build files, named build.xml. You can use the tasks to create the jar
+from the source code as soon as you have Ant installed, or you are using an IDE prepared for that, like IDEA, Eclipse or NetBeans.
+Apache Ant can be found at the <a href="https://ant.apache.org/">Apache Ant Project Page</a></p>
+<p>If you are searching for the Solr plugin of LIRE ... it's still under construction. Some global features are working fine 
+and its based on Solr 4.10.2. It can be found at <a href="https://bitbucket.org/dermotte/liresolr">BitBucket</a>. It has been reported
+working on distributed installations.</p>
+<h2 id="how-does-lire-actually-work">How does Lire actually work?</h2>
+<p>Lire employs <em>global image features</em> for <em>content based image retrieval</em>. For more information on the underlying methods 
+and techniques you should consult the basic literature on <a href="http://en.wikipedia.org/wiki/CBIR">content based images retrieval</a>:</p>
+<ul>
+<li><a href="http://www.amazon.com/Information-Retrieval-Synthesis-Lectures-Concepts/dp/1608459187/ref=sr_1_1?ie=UTF8&amp;qid=1434544298&amp;sr=8-1&amp;keywords=lire+lux&amp;pebp=1434544293512&amp;perid=165GFHRF19TFTK35C3PC">Visual Information Retrieval using Java and LIRE</a> (Lux &amp; Marques, 2013)</li>
+<li><a href="http://infolab.stanford.edu/~wangz/project/imsearch/review/JOUR/datta.pdf">Image Retrieval: Ideas, Influences, and Trends of the New Age</a> (Datta et al., 2008)</li>
+<li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.92.889&amp;rep=rep1&amp;type=pdf">Content-Based Image Retrieval at the End of the Early Years</a> (Smeulders et al., 2000)</li>
+</ul>
+<p>Further it uses the Java search engine Lucene to provide</p>
+<ul>
+<li>linear search (opening each and every indexed document and comparing it to the query feature)</li>
+<li>approximate indexing based on metric spaces based on the work of <a href="http://www.nmis.isti.cnr.it/amato/">G. Amato</a></li>
+<li>approximate indexing based on locality sensitive hashing</li>
+</ul>
+<h2 id="performance">Performance</h2>
+<p>Parallel indexing with the <a href="createindex/">ParallelIndexer</a> running with 8 threads on a AMD A10 with 4 cores and 4.4 GHz, 
+Windows 7 64 bits extracting 7 features at once including hashing is down to ~180 ms per image. On a Intel Core i7, ie. 
+the 4770K, it runs a lot faster, using an SSD then speeds up the process even more. Extracting single features with the 
+ParallelIndexer is on a core i7 typically faster than 1 MP images can be read from a (magnetic) hard disk.</p>
+<p>Search is a matter of index size and is down to a few ms for 100k and less images, and increases linearly. </p>
+</div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Copyright &copy; 2015, Mathias Lux and Nektarios Anagnostopoulos.</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/highlight.pack.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
