@@ -83,6 +83,8 @@ void MainWindow::InitConnect()
         QString indexAction = "INDEX";
         QString indexDepends = ui->m_searchTypeCombo->currentText().trimmed();
         SendRequest(indexAction, m_openedFilePath, indexDepends);
+        ui->m_createIndexBtn->setText(tr("索引中,请稍后..."));
+        ui->m_createIndexBtn->setEnabled(false);
     }
     );
 
@@ -106,21 +108,26 @@ void MainWindow::SendRequest(QString& strAction, QString& filepath, QString& dep
 {
     m_pSocket->connectToHost("127.0.0.1", 12345);
     bool connected = m_pSocket->waitForConnected();// waitForConnected();
-    if(strAction == "SEARCH")
-    {
-        QString sendStr = strAction + "CSU" + filepath + "CSU" + depends + "CSU" + "\n";
+    QString sendStr = strAction + "CSU" + filepath + "CSU" + depends + "CSU" + "\n";
 
-        if(connected)
-        {
-            m_pSocket->write(sendStr.toStdString().c_str(), sendStr.size());
-            m_pSocket->waitForBytesWritten();
-        }
+    if(connected)
+    {
+        m_pSocket->write(sendStr.toStdString().c_str(), sendStr.size());
+        m_pSocket->waitForBytesWritten();
     }
 }
 
 void MainWindow::ReadMessage()
 {
     QString strImagesPath(m_pSocket->readAll());
+
+    if(strImagesPath.trimmed() == "Index over!")
+    {
+            ui->m_createIndexBtn->setText(tr("索引完毕！"));
+            ui->m_createIndexBtn->setEnabled(true);
+            return;
+    }
+
     qDebug() << strImagesPath << endl;
     ShowResult(strImagesPath);
 }
@@ -154,8 +161,6 @@ void MainWindow::ShowChoosedImage(const QString& path)
 {
     ui->m_choosedImageWidget->setStyleSheet("QWidget{border-image: url(" + path + ")}");
     ui->m_choosedImageWidget->setToolTip(path);
-
-
 }
 
 
