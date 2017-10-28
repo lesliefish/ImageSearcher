@@ -1,0 +1,12 @@
+INPUT(
+./release\mainwindow.o
+./release\framelesswidget.o
+./release\warningdlg.o
+./release\aboutdlg.o
+./release\main.o
+./release\qrc_main.o
+./release\moc_mainwindow.o
+./release\moc_framelesswidget.o
+./release\moc_warningdlg.o
+./release\moc_aboutdlg.o
+);

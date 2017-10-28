@@ -1,0 +1,12 @@
+INPUT(
+./debug\mainwindow.o
+./debug\framelesswidget.o
+./debug\warningdlg.o
+./debug\aboutdlg.o
+./debug\main.o
+./debug\qrc_main.o
+./debug\moc_mainwindow.o
+./debug\moc_framelesswidget.o
+./debug\moc_warningdlg.o
+./debug\moc_aboutdlg.o
+);
