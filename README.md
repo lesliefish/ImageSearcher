@@ -1,21 +1,21 @@
   # ImageSearcher
 基于LIRE搭建的图像检索
   <br>
-  1、主界面 <br>
-    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/1.png)
+  1、主界面 <br><br>
+    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/1.png)
    <br>  <br>
-  2、测试效果 <br>
-   CEDD算法<br>
+  2、测试效果 <br><br>
+   CEDD算法<br><br>
    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/2.png)
    <br>  <br>
-   CEDD算法<br>
-     ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/3.png)
+   CEDD算法<br><br>
+     ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/3.png)
     <br>  <br>
-   索引过程<br>
+   索引过程<br><br>
    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/4.png)
     <br>  <br>
-    PHOG算法<br>
-    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/5.png)
+    PHOG算法<br><br>
+    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/5.png)
 
 ### 服务端 
 Java编写
