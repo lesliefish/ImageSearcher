@@ -1,9 +1,9 @@
 /** @file    aboutdlg.h
 * @note
-* @brief   é€€å‡ºæç¤ºçª—å£
+* @brief   ÍË³öÌáÊ¾´°¿Ú
 *
 * @author  lesliefish
-* @date    2017å¹´10æœˆ19æ—¥
+* @date    2017Äê10ÔÂ19ÈÕ
 *
 * @note    detailed functional description of this document and comments
 * @note    History
@@ -31,14 +31,14 @@ public:
 
 private:
     Ui::WarningDlg *ui;
-    void Exit();
+    void exit();
 protected:
-    //å®ç°é¼ æ ‡å¯¹æ— è¾¹æ¡†çª—å£æ‹–åŠ¨
+    //ÊµÏÖÊó±ê¶ÔÎŞ±ß¿ò´°¿ÚÍÏ¶¯
     QPoint m_pointMove;
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
 signals:
-    void SigExit();
+    void sigExit();
 };
 
 #endif // WARNINGDLG_H

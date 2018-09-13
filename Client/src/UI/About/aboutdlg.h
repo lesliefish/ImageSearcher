@@ -1,9 +1,9 @@
 /** @file    aboutdlg.h
 * @note
-* @brief   å…³äºçª—å£
+* @brief   ¹ØÓÚ´°¿Ú
 *
 * @author  lesliefish
-* @date    2017å¹´10æœˆ21æ—¥
+* @date    2017Äê10ÔÂ21ÈÕ
 *
 * @note    detailed functional description of this document and comments
 * @note    History
@@ -31,7 +31,7 @@ public:
 private:
     Ui::AboutDlg *ui;
 protected:
-    //å®ç°é¼ æ ‡å¯¹æ— è¾¹æ¡†çª—å£æ‹–åŠ¨
+    //ÊµÏÖÊó±ê¶ÔÎŞ±ß¿ò´°¿ÚÍÏ¶¯
     QPoint m_pointMove;
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);

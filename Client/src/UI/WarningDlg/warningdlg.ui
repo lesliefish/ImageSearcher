@@ -449,7 +449,7 @@ QPushButton#m_cancleBtn:hover
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>32</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>

@@ -1,4 +1,4 @@
-#include "framelesswidget.h"
+#include "FramelessWidget.h"
 #include "ui_framelesswidget.h"
 #include <QMouseEvent>
 
@@ -7,7 +7,7 @@ FramelessWidget::FramelessWidget(QWidget *parent) :
     ui(new Ui::FramelessWidget)
 {
     ui->setupUi(this);
-    InitUI();
+    initUi();
 }
 
 FramelessWidget::~FramelessWidget()
@@ -15,7 +15,7 @@ FramelessWidget::~FramelessWidget()
     delete ui;
 }
 
-void FramelessWidget::InitUI()
+void FramelessWidget::initUi()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
 }

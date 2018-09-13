@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>160</height>
+    <width>385</width>
+    <height>169</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>320</width>
-    <height>160</height>
+    <width>385</width>
+    <height>178</height>
    </size>
   </property>
   <property name="font">
@@ -118,7 +118,7 @@ background:rgb(0, 0, 0);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="m_aboutTitleBtn">
+           <widget class="QPushButton" name="aboutTitleBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -168,7 +168,7 @@ QPushButton#m_aboutTitleBtn:hover
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="m_aboutCloseBtn">
+           <widget class="QPushButton" name="aboutCloseBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -301,7 +301,7 @@ border-radius: 1px;
                </font>
               </property>
               <property name="text">
-               <string>联系 RTX：</string>
+               <string>博客：</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -318,7 +318,7 @@ border-radius: 1px;
               </property>
               <property name="maximumSize">
                <size>
-                <width>200</width>
+                <width>400</width>
                 <height>28</height>
                </size>
               </property>
@@ -328,7 +328,7 @@ border-radius: 1px;
                </font>
               </property>
               <property name="text">
-               <string>lesliefish</string>
+               <string>https://me.csdn.net/y396397735</string>
               </property>
              </widget>
             </item>
@@ -364,7 +364,7 @@ border-radius: 1px;
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="m_openBtn">
+             <widget class="QPushButton" name="openBtn">
               <property name="minimumSize">
                <size>
                 <width>80</width>

@@ -1,4 +1,4 @@
-#include "aboutdlg.h"
+#include "AboutDlg.h"
 #include "ui_aboutdlg.h"
 #include <QMouseEvent>
 #include <QDesktopServices>
@@ -9,9 +9,9 @@ AboutDlg::AboutDlg(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowTitle(ui->m_aboutTitleBtn->text());
-    connect(ui->m_aboutCloseBtn, &QPushButton::clicked, this, &AboutDlg::close);
-    connect(ui->m_openBtn, &QPushButton::clicked,
+    this->setWindowTitle(ui->aboutTitleBtn->text());
+    connect(ui->aboutCloseBtn, &QPushButton::clicked, this, &AboutDlg::close);
+    connect(ui->openBtn, &QPushButton::clicked,
             [=]()
     {
         QString filePath = QApplication::applicationDirPath();

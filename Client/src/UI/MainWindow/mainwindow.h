@@ -1,13 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QFile>
+#include <QDir>
+#include <QFileDialog>
+#include <QPalette>
+#include <QDebug>
+#include <QIcon>
 #include <QWidget>
 #include <QtNetwork/QTcpSocket>
 #include "WarningDlg/warningdlg.h"
-#include "FramelessWidget/framelesswidget.h"
-#include "About/aboutdlg.h"
+#include "FramelessWidget/FramelessWidget.h"
+#include "About/AboutDlg.h"
 
-namespace Ui {
+namespace Ui 
+{
 class MainWindow;
 }
 
@@ -19,33 +26,32 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
-    //æ‰“å¼€çš„æ–‡ä»¶è·¯å¾„
-    QString m_openedFilePath;
 signals:
-    void SigOpenFileSuccess(QString);
+    void runOver();
+
 private:
-    void InitUI();
-    void InitConnect();
+    void initUi();
+    void initConnect();
 
-    //å‘é€æ•°æ®
-    void SendRequest(QString& strAction, QString& filepath, QString& depends);
-    //è¯»æ•°æ®
-    void ReadMessage();
-    //æœç´¢ç»“æœå±•ç¤ºåœ¨ä¸‹é¢è¡¨ä¸­
-    void ShowResult(const QString&);
+    //·¢ËÍÊı¾İ
+    void sendRequest(QString& strAction, QString& filepath, QString& depends);
+    //¶ÁÊı¾İ
+    void readMessage();
+    //ËÑË÷½á¹ûÕ¹Ê¾ÔÚÏÂÃæ±íÖĞ
+    void showResult(const QString&);
 
-    //æ‰“å¼€ä¸€ä¸ªå›¾åƒæ–‡ä»¶
-    bool OpenImageFile();
-    //æ˜¾ç¤ºæ‰“å¼€çš„å›¾ç‰‡
-    void ShowChoosedImage(const QString&);
-    WarningDlg m_warningDlg;
-    AboutDlg m_aboutDlg;
+    //´ò¿ªÒ»¸öÍ¼ÏñÎÄ¼ş
+    bool openImageFile();
+    //ÏÔÊ¾´ò¿ªµÄÍ¼Æ¬
+    void showChoosedImage(const QString&);
 
-    QTcpSocket* m_pSocket;
-
-
+private:
+	Ui::MainWindow *ui;
+	//´ò¿ªµÄÎÄ¼şÂ·¾¶
+	QString m_openedFilePath;
+	WarningDlg* m_warningDlg{ nullptr };
+	AboutDlg* m_aboutDlg{nullptr};
+	QTcpSocket* m_pSocket;
 };
 
 #endif // MAINWINDOW_H

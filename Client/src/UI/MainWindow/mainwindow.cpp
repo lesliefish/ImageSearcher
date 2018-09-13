@@ -1,12 +1,7 @@
-#include <QFile>
-#include <QDir>
-#include <QFileDialog>
-#include <QPalette>
-#include <QDebug>
-#include <QIcon>
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-
+#include "MainWindow/MainWindow.h"
+#include "ui_MainWindow.h"
+#include <future>
+#include <QEventLoop>
 
 MainWindow::MainWindow(QWidget *parent) :
     FramelessWidget(parent),
@@ -15,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_pSocket = new QTcpSocket(this);
 
-    InitUI();
-    InitConnect();
+    initUi();
+    initConnect();
 }
 
 MainWindow::~MainWindow()
@@ -26,191 +21,229 @@ MainWindow::~MainWindow()
 }
 
 /**
- *  @brief  åˆå§‹åŒ–ç•Œé¢
+ *  @brief  ³õÊ¼»¯½çÃæ
  *  @name
  *  @author lesliefish
  *  @param  none
  *  @return
  */
-void MainWindow::InitUI()
+void MainWindow::initUi()
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
     QIcon icon(":/new/Icon/images/main.png");
-    this->setWindowIcon(icon);
-    this->setWindowTitle(ui->m_appNameBtn->text());
+    setWindowIcon(icon);
+    setWindowTitle(ui->appNameBtn->text());
 
+    m_warningDlg = new WarningDlg;
+    m_aboutDlg = new AboutDlg;
+
+    // ¼ÓÔØQssÎÄ¼ş
     QString stylePath = QDir::currentPath() + "/res/main.qss";
     QFile fileQss(stylePath);
-    if(!fileQss.open(QFile::ReadOnly))
-        return;
-    this->setStyleSheet(fileQss.readAll());
-
-    ui->m_maxBtn->setVisible(false);
-    ui->m_showTableWidget->setRowCount(10);
-    ui->m_showTableWidget->setColumnCount(6);
-
-    for(int i = 0; i < ui->m_showTableWidget->rowCount(); ++i)
+    if (fileQss.open(QFile::ReadOnly))
     {
-        ui->m_showTableWidget->setRowHeight(i, 130);
-        if(i<ui->m_showTableWidget->columnCount())
-            ui->m_showTableWidget->setColumnWidth(i, 130);
+        setStyleSheet(fileQss.readAll());
+    }
+
+    ui->maxBtn->setVisible(false);
+    ui->showTableWidget->setRowCount(10);
+    ui->showTableWidget->setColumnCount(6);
+
+    for (int i = 0; i < ui->showTableWidget->rowCount(); ++i)
+    {
+        ui->showTableWidget->setRowHeight(i, 130);
+        if (i < ui->showTableWidget->columnCount())
+            ui->showTableWidget->setColumnWidth(i, 130);
     }
 }
 
-/**
- *  @brief  åˆå§‹åŒ–è¿æ¥
- *  @name
- *  @author lesliefish
- *  @param  none
- *  @return
- */
-void MainWindow::InitConnect()
+
+//************************************
+// Method:    initConnect
+// FullName:  MainWindow::initConnect
+// author:    lesliefish
+// Returns:   void
+// Qualifier: ĞÅºÅ²Ûº¯ÊıÁ¬½Ó
+//************************************
+void MainWindow::initConnect()
 {
-    connect(ui->m_helpBtn, &QPushButton::clicked, [=](){m_aboutDlg.exec();});
-    connect(ui->m_minBtn, &QPushButton::clicked, [=](){this->showMinimized();});
-    connect(ui->m_maxBtn, &QPushButton::clicked, [=](){this->isMaximized() ? this->showNormal() : this->showMaximized();});
-    connect(ui->m_closeBtn, &QPushButton::clicked,[=](){m_warningDlg.exec();});
-    connect(&m_warningDlg, &WarningDlg::SigExit, [=](){this->close();});
+    connect(ui->helpBtn, &QPushButton::clicked, [&]() {m_aboutDlg->exec(); });
+    connect(ui->minBtn, &QPushButton::clicked, [&]() {this->showMinimized(); });
+    connect(ui->closeBtn, &QPushButton::clicked, [&]() {m_warningDlg->exec(); });
+    connect(m_warningDlg, &WarningDlg::sigExit, [&]() {this->close(); });
 
-    connect(ui->m_chooseImageBtn, &QPushButton::clicked, this, &MainWindow::OpenImageFile);
-    connect(this, &MainWindow::SigOpenFileSuccess, this, &MainWindow::ShowChoosedImage);
+    connect(ui->chooseImageBtn, &QPushButton::clicked, this, &MainWindow::openImageFile);
 
-    //æ£€ç´¢
-    connect(ui->m_startSearchBtn, &QPushButton::clicked,
-            [=]()
+    //¼ìË÷
+    connect(ui->startSearchBtn, &QPushButton::clicked,
+        [=]()
     {
-        if(m_openedFilePath.size()==0)
+        if (m_openedFilePath.size() == 0)
         {
             return;
         }
-        ui->m_showTableWidget->clear();
+        ui->showTableWidget->clear();
         QString searchAction = "SEARCH";
-        QString searchDepends = ui->m_searchTypeCombo->currentText().trimmed();
-        SendRequest(searchAction, m_openedFilePath, searchDepends);
+        QString searchDepends = ui->searchTypeCombo->currentText().trimmed();
+        sendRequest(searchAction, m_openedFilePath, searchDepends);
     }
     );
 
-    //ç´¢å¼•
-    connect(ui->m_createIndexBtn, &QPushButton::clicked,
-            [=]()
+    //Ë÷Òı
+    connect(ui->createIndexBtn, &QPushButton::clicked, [&]()
     {
         QString indexAction = "INDEX";
-        QString indexDepends = ui->m_searchTypeCombo->currentText().trimmed();
-        SendRequest(indexAction, m_openedFilePath, indexDepends);
-        ui->m_createIndexBtn->setText(tr("ç´¢å¼•ä¸­,è¯·ç¨å..."));
-        ui->m_createIndexBtn->setEnabled(false);
+        QString indexDepends = ui->searchTypeCombo->currentText().trimmed();
+        ui->createIndexBtn->setEnabled(false);
+        ui->createIndexBtn->setText(QString::fromLocal8Bit("Ë÷ÒıÖĞ,ÇëÉÔºó..."));
+        
+        sendRequest(indexAction, m_openedFilePath, indexDepends);
+
+
     }
     );
 
-    connect(m_pSocket, &QAbstractSocket::readyRead, [=](){ReadMessage();});
+    connect(m_pSocket, &QAbstractSocket::readyRead, [&]() {readMessage(); });
 }
 
-/**
- *  @brief æ‰“å¼€ä¸€ä¸ªæœ¬åœ°å›¾åƒæ–‡ä»¶
- *  @name
- *  @author lesliefish
- *  @param  none
- *  @return æˆåŠŸè¿”å›true,å¤±è´¥è¿”å›false
- */
-bool MainWindow::OpenImageFile()
+
+//************************************
+// Method:    openImageFile
+// FullName:  MainWindow::openImageFile
+// author:    lesliefish
+// Returns:   bool
+// Qualifier: ´ò¿ªÍ¼Æ¬
+//************************************
+bool MainWindow::openImageFile()
 {
     m_openedFilePath = QFileDialog::getOpenFileName(this,
-                                                    tr("æ‰“å¼€æ–‡ä»¶"),
-                                                    "/",
-                                                    tr("å›¾åƒæ–‡ä»¶(*.jpg *.png)"));
-    if(!m_openedFilePath.size())
+        tr("´ò¿ªÎÄ¼ş"),
+        "/",
+        tr("Í¼ÏñÎÄ¼ş(*.jpg *.png)"));
+    if (m_openedFilePath.isEmpty())
+    {
         return false;
+    }
+
     qDebug() << m_openedFilePath;
-    emit SigOpenFileSuccess(m_openedFilePath);
+
+    showChoosedImage(m_openedFilePath);
     return true;
 }
 
-/**
- *  @brief  å‘æœåŠ¡ç«¯å‘é€ç´¢å¼•æˆ–è€…æ£€ç´¢è¯·æ±‚
- *  @name
- *  @author lesliefish
- *  @param
- *  @return
- */
-void MainWindow::SendRequest(QString& strAction, QString& filepath, QString& depends)
+//************************************
+// Method:    sendRequest
+// FullName:  MainWindow::sendRequest
+// author:    lesliefish
+// Returns:   void
+// Qualifier: Ïò·şÎñ¶Ë·¢ËÍË÷Òı»òÕß¼ìË÷ÇëÇó
+// Parameter: QString & strAction
+// Parameter: QString & filepath
+// Parameter: QString & depends
+//************************************
+void MainWindow::sendRequest(QString& strAction, QString& filepath, QString& depends)
 {
-    m_pSocket->connectToHost("127.0.0.1", 12345);
-    bool connected = m_pSocket->waitForConnected();// waitForConnected();
-    QString sendStr = strAction + "CSU" + filepath + "CSU" + depends + "CSU" + "\n";
-
-    if(connected)
+    QEventLoop loop;
+    connect(this, &MainWindow::runOver, &loop, &QEventLoop::quit);
+    auto fut = std::async([&]
     {
-        m_pSocket->write(sendStr.toStdString().c_str(), sendStr.size());
-        m_pSocket->waitForBytesWritten();
+        m_pSocket->connectToHost("127.0.0.1", 12345);
+        bool connected = m_pSocket->waitForConnected(5000);// waitForConnected();
+        QString sendStr = strAction + "CSU" + filepath + "CSU" + depends + "CSU" + "\n";
+
+        if (connected)
+        {
+            m_pSocket->write(sendStr.toStdString().c_str(), sendStr.size());
+            m_pSocket->waitForBytesWritten();
+        }
+
+        emit runOver();
+        return connected;
+    });
+
+    loop.exec();
+
+    if (fut.get())
+    {
+        ui->createIndexBtn->setText(QString::fromLocal8Bit("Ë÷ÒıÍê±Ï"));
+        ui->createIndexBtn->setEnabled(true);
     }
+    else
+    {
+        ui->createIndexBtn->setText(QString::fromLocal8Bit("ÍøÂç´íÎó£¡µã»÷ÖØĞÂË÷Òı"));
+        ui->createIndexBtn->setEnabled(true);
+    }
+
 }
 
-/**
- *  @brief  æ¥å—æœåŠ¡ç«¯å‘æ¥çš„æ•°æ®
- *  @name
- *  @author lesliefish
- *  @param
- *  @return
- */
-void MainWindow::ReadMessage()
+//************************************
+// Method:    readMessage
+// FullName:  MainWindow::readMessage
+// author:    lesliefish
+// Returns:   void
+// Qualifier: ½ÓÊÜ·şÎñ¶Ë·¢À´µÄÊı¾İ
+//************************************
+void MainWindow::readMessage()
 {
     QString strImagesPath(m_pSocket->readAll());
     m_pSocket->disconnected();
 
-    //ç´¢å¼•ç»“æœå¤„ç†
-    if(strImagesPath.trimmed() == "Index over!")
+    //Ë÷Òı½á¹û´¦Àí
+    if (strImagesPath.trimmed() == "Index over!")
     {
-            ui->m_createIndexBtn->setText(tr("ç´¢å¼•å®Œæ¯•ï¼"));
-            ui->m_createIndexBtn->setEnabled(true);
-            return;
+        ui->createIndexBtn->setText(tr("Ë÷ÒıÍê±Ï£¡"));
+        ui->createIndexBtn->setEnabled(true);
+        return;
     }
 
-    //æœç´¢ç»“æœå¤„ç†
+    //ËÑË÷½á¹û´¦Àí
     qDebug() << strImagesPath << endl;
-    ShowResult(strImagesPath);
+    showResult(strImagesPath);
 }
 
-
-/**
- *  @brief  æ˜¾ç¤ºæ£€ç´¢ç»“æœ
- *  @name
- *  @author lesliefish
- *  @param strPath è¿”å›ç»“æœçš„å›¾åƒæ•°æ®é›†çš„è·¯å¾„
- *  @return
- */
-void MainWindow::ShowResult(const QString& strPath)
+//************************************
+// Method:    showResult
+// FullName:  MainWindow::showResult
+// author:    lesliefish
+// Returns:   void
+// Qualifier: ÏÔÊ¾¼ìË÷½á¹û
+// Parameter: const QString & strPath ·µ»Ø½á¹ûµÄÍ¼ÏñÊı¾İ¼¯µÄÂ·¾¶
+//************************************
+void MainWindow::showResult(const QString& strPath)
 {
     QStringList filepathList = strPath.split("CSU");
-    filepathList.removeLast();//å»æ‰æœ€åçš„æ¢è¡Œç©ºç™½
-    //ç¬¬kå¹…å›¾åƒ
+    filepathList.removeLast();//È¥µô×îºóµÄ»»ĞĞ¿Õ°×
+    //µÚk·ùÍ¼Ïñ
     int k = 0;
-    for(int i = 0; i < ui->m_showTableWidget->rowCount(); i++)
+    for (int i = 0; i < ui->showTableWidget->rowCount(); i++)
     {
-        for(int j = 0; j < ui->m_showTableWidget->columnCount(); j++)
+        for (int j = 0; j < ui->showTableWidget->columnCount(); j++)
         {
             QLabel *label = new QLabel();
             label->setScaledContents(true);
             QImage* img = new QImage();
             img->load(filepathList[k]);
             label->setPixmap(QPixmap::fromImage(*img));
-            label->setToolTip(filepathList[k]+"");
-            ui->m_showTableWidget->setCellWidget(i,j,label);
+            label->setToolTip(filepathList[k] + "");
+            ui->showTableWidget->setCellWidget(i, j, label);
             k++;
         }
     }
 }
 
-/**
- *  @brief  æ˜¾ç¤ºæœ¬åœ°å›¾ç‰‡åˆ°çª—å£ä¸Š
- *  @name
- *  @author lesliefish
- *  @param path æ–‡ä»¶è·¯å¾„
- *  @return
- */
-void MainWindow::ShowChoosedImage(const QString& path)
+
+//************************************
+// Method:    showChoosedImage
+// FullName:  MainWindow::showChoosedImage
+// author:    lesliefish
+// Returns:   void
+// Qualifier: ÏÔÊ¾±¾µØÍ¼Æ¬µ½´°¿ÚÉÏ
+// Parameter: const QString & path ÎÄ¼şÂ·¾¶
+//************************************
+void MainWindow::showChoosedImage(const QString& path)
 {
-    ui->m_choosedImageWidget->setStyleSheet("QWidget{border-image: url(" + path + ")}");
-    ui->m_choosedImageWidget->setToolTip(path);
+    ui->choosedImageWidget->setStyleSheet("QWidget{border-image: url(" + path + ")}");
+    ui->choosedImageWidget->setToolTip(path);
 }
 
 

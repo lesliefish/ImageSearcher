@@ -6,11 +6,11 @@ WarningDlg::WarningDlg(QWidget *parent) :
     ui(new Ui::WarningDlg)
 {
     ui->setupUi(this);
-    this->setWindowTitle(ui->m_titleTextBtn->text().trimmed());
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    setWindowTitle(ui->m_titleTextBtn->text().trimmed());
+    setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->m_closeBtn, &QPushButton::clicked,[=](){this->close();});
     connect(ui->m_cancleBtn,&QPushButton::clicked,[=](){this->close();});
-    connect(ui->m_OKBtn, &QPushButton::clicked, this, &WarningDlg::Exit);
+    connect(ui->m_OKBtn, &QPushButton::clicked, this, &WarningDlg::exit);
 }
 
 WarningDlg::~WarningDlg()
@@ -18,11 +18,12 @@ WarningDlg::~WarningDlg()
     delete ui;
 }
 
-void WarningDlg::Exit()
+void WarningDlg::exit()
 {
     this->close();
-    emit SigExit();
+    emit sigExit();
 }
+
 void WarningDlg::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton)

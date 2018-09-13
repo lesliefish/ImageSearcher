@@ -18,7 +18,7 @@ public:
 private:
     Ui::FramelessWidget *ui;
 
-    void InitUI();
+    void initUi();
 protected:
     //实现鼠标对无边框窗口拖动
     QPoint m_pointMove;

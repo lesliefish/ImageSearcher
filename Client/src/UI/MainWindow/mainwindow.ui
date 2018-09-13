@@ -53,17 +53,17 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="m_titleWidget" native="true">
+      <widget class="QWidget" name="titleWidget" native="true">
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>28</height>
+         <height>36</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>28</height>
+         <height>36</height>
         </size>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -84,18 +84,24 @@
         </property>
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
           <item>
-           <widget class="QPushButton" name="m_appNameBtn">
+           <widget class="QPushButton" name="appNameBtn">
             <property name="minimumSize">
              <size>
               <width>50</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="font">
@@ -132,17 +138,17 @@
            <number>0</number>
           </property>
           <item row="0" column="0">
-           <widget class="QPushButton" name="m_helpBtn">
+           <widget class="QPushButton" name="helpBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>35</width>
-              <height>28</height>
+              <width>36</width>
+              <height>32</height>
              </size>
             </property>
             <property name="font">
@@ -162,17 +168,17 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="m_minBtn">
+           <widget class="QPushButton" name="minBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>35</width>
-              <height>28</height>
+              <width>36</width>
+              <height>32</height>
              </size>
             </property>
             <property name="font">
@@ -190,17 +196,17 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="m_maxBtn">
+           <widget class="QPushButton" name="maxBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>35</width>
-              <height>28</height>
+              <width>36</width>
+              <height>32</height>
              </size>
             </property>
             <property name="font">
@@ -217,17 +223,17 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QPushButton" name="m_closeBtn">
+           <widget class="QPushButton" name="closeBtn">
             <property name="minimumSize">
              <size>
               <width>35</width>
-              <height>28</height>
+              <height>32</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>35</width>
-              <height>28</height>
+              <width>36</width>
+              <height>32</height>
              </size>
             </property>
             <property name="font">
@@ -250,7 +256,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="m_mainWidget" native="true">
+      <widget class="QWidget" name="mainWidget" native="true">
        <layout class="QGridLayout" name="gridLayout_4">
         <property name="leftMargin">
          <number>0</number>
@@ -270,7 +276,7 @@
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QWidget" name="m_btnWidget" native="true">
+           <widget class="QWidget" name="btnWidget" native="true">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -318,7 +324,7 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QWidget" name="m_choosedImageWidget" native="true">
+                <widget class="QWidget" name="choosedImageWidget" native="true">
                  <property name="minimumSize">
                   <size>
                    <width>120</width>
@@ -370,7 +376,7 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="m_chooseImageBtn">
+                    <widget class="QPushButton" name="chooseImageBtn">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -421,8 +427,11 @@
                  </item>
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_3">
+                   <property name="rightMargin">
+                    <number>10</number>
+                   </property>
                    <item>
-                    <widget class="QPushButton" name="m_createIndexBtn">
+                    <widget class="QPushButton" name="createIndexBtn">
                      <property name="minimumSize">
                       <size>
                        <width>200</width>
@@ -450,7 +459,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="m_searchTypeCombo">
+                      <widget class="QComboBox" name="searchTypeCombo">
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -481,7 +490,7 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="m_startSearchBtn">
+                    <widget class="QPushButton" name="startSearchBtn">
                      <property name="minimumSize">
                       <size>
                        <width>200</width>
@@ -501,22 +510,6 @@
                    </item>
                   </layout>
                  </item>
-                 <item>
-                  <spacer name="horizontalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>5</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
                 </layout>
                </item>
               </layout>
@@ -525,7 +518,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="m_resultWidget" native="true">
+           <widget class="QWidget" name="resultWidget" native="true">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -555,7 +548,7 @@
               <number>1</number>
              </property>
              <item row="0" column="0">
-              <widget class="QTableWidget" name="m_showTableWidget">
+              <widget class="QTableWidget" name="showTableWidget">
                <attribute name="horizontalHeaderVisible">
                 <bool>false</bool>
                </attribute>

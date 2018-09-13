@@ -5,6 +5,7 @@
         <file>images/min.png</file>
         <file>images/normal.png</file>
         <file>images/help.png</file>
+        <file>images/background.jpg</file>
     </qresource>
     <qresource prefix="/new/Icon">
         <file>images/main.png</file>
