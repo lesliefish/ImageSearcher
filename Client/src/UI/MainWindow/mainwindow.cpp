@@ -3,8 +3,7 @@
 #include <future>
 #include <QEventLoop>
 
-MainWindow::MainWindow(QWidget *parent) :
-    FramelessWidget(parent),
+MainWindow::MainWindow(QWidget *parent) : FramelessWidget(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -20,13 +19,13 @@ MainWindow::~MainWindow()
     m_pSocket->disconnected();
 }
 
-/**
- *  @brief  初始化界面
- *  @name
- *  @author lesliefish
- *  @param  none
- *  @return
- */
+//************************************
+// Method:    initUi
+// FullName:  MainWindow::initUi
+// author:    lesliefish
+// Returns:   void
+// Qualifier: 初始化界面
+//************************************
 void MainWindow::initUi()
 {
     setWindowFlags(Qt::FramelessWindowHint);
@@ -53,10 +52,12 @@ void MainWindow::initUi()
     {
         ui->showTableWidget->setRowHeight(i, 130);
         if (i < ui->showTableWidget->columnCount())
+        {
             ui->showTableWidget->setColumnWidth(i, 130);
+        }
+            
     }
 }
-
 
 //************************************
 // Method:    initConnect
@@ -75,8 +76,7 @@ void MainWindow::initConnect()
     connect(ui->chooseImageBtn, &QPushButton::clicked, this, &MainWindow::openImageFile);
 
     //检索
-    connect(ui->startSearchBtn, &QPushButton::clicked,
-        [=]()
+    connect(ui->startSearchBtn, &QPushButton::clicked,[&]
     {
         if (m_openedFilePath.size() == 0)
         {
@@ -90,16 +90,14 @@ void MainWindow::initConnect()
     );
 
     //索引
-    connect(ui->createIndexBtn, &QPushButton::clicked, [&]()
+    connect(ui->createIndexBtn, &QPushButton::clicked, [&]
     {
         QString indexAction = "INDEX";
         QString indexDepends = ui->searchTypeCombo->currentText().trimmed();
         ui->createIndexBtn->setEnabled(false);
         ui->createIndexBtn->setText(QString::fromLocal8Bit("索引中,请稍后..."));
-        
+
         sendRequest(indexAction, m_openedFilePath, indexDepends);
-
-
     }
     );
 
@@ -231,7 +229,6 @@ void MainWindow::showResult(const QString& strPath)
     }
 }
 
-
 //************************************
 // Method:    showChoosedImage
 // FullName:  MainWindow::showChoosedImage
@@ -245,6 +242,3 @@ void MainWindow::showChoosedImage(const QString& path)
     ui->choosedImageWidget->setStyleSheet("QWidget{border-image: url(" + path + ")}");
     ui->choosedImageWidget->setToolTip(path);
 }
-
-
-
