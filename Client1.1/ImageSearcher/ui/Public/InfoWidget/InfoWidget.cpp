@@ -8,7 +8,8 @@ namespace imagesearcher
     {
         ui = new Ui::InfoWidget();
         ui->setupUi(this);
-
+        setWindowFlags(windowFlags() | Qt::SubWindow);
+        setAttribute(Qt::WA_ShowModal);
         init();
     }
 
@@ -46,12 +47,21 @@ namespace imagesearcher
             emit signalIgnore();
             close();
         });
-
+        setFixedSize(400, 400 * 0.618);
+        setPageTitle(tr("Prompt"));
         ui->okBtn->setText(tr("OK"));
         ui->cancelBtn->setText(tr("Cancel"));
         ui->ignoreBtn->setText(tr("Ignore"));
         ui->ignoreBtn->hide();//默认隐藏
         ui->checkBox->hide();
+
+        // 加载皮肤样式qss
+        QString qssPath{ ":/qss/InfoWidget.qss" };
+        QFile file(qssPath);
+        if (file.open(QFile::ReadOnly))
+        {
+            setStyleSheet(file.readAll());
+        }
     }
 
     void InfoWidget::hideBottomBtn()

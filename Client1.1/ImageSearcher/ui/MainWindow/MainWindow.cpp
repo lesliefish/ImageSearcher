@@ -21,6 +21,8 @@ namespace imagesearcher
 
     void MainWindow::initUi()
     {
+        infoTextWidget = new InfoTextWidget;
+
         ui->tableWidget->setRowCount(10);
         ui->tableWidget->setColumnCount(6);
         ui->tableWidget->horizontalHeader()->hide();
@@ -78,6 +80,8 @@ namespace imagesearcher
         {
             if (m_curImagePath.isEmpty())
             {
+                infoTextWidget->setTipText(tr("Please select image file first."));
+                infoTextWidget->show();
                 return;
             }
 
@@ -86,6 +90,14 @@ namespace imagesearcher
             sendRequest(action, m_curImagePath, depends);
 
             ui->tableWidget->clear();
+        });
+
+        // 索引
+        connect(ui->createIndexBtn, &QPushButton::clicked, [&]
+        {
+            QString action = "INDEX";
+            QString depends = ui->searchTypeCombo->currentText().trimmed();
+            sendRequest(action, m_curImagePath, depends);
         });
     }
 
@@ -105,6 +117,8 @@ namespace imagesearcher
         if (!connected)
         {
             // 连接服务器失败
+            infoTextWidget->setTipText(tr("Connect server failed."));
+            infoTextWidget->show();
             return;
         }
 
@@ -144,6 +158,7 @@ namespace imagesearcher
      */
     void MainWindow::showResult(const QStringList paths)
     {
+        ui->tableWidget->clear();
         //第k幅图像 
         int k = 0;
         for (int i = 0; i < ui->tableWidget->rowCount(); i++)

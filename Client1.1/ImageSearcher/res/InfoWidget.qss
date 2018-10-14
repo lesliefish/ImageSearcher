@@ -1,0 +1,128 @@
+imagesearcher--InfoWidget QWidget
+{
+	background : #FFFFFF;
+	border : none;
+	font-family: Microsoft YaHei;
+	font-size: 12px;
+}
+
+imagesearcher--InfoWidget QPushButton#okBtn
+{
+	border:none;
+	border-radius : 2px;
+	color:#ffffff;
+	font-weight:bold;
+	background:#4390fa;
+}
+
+imagesearcher--InfoWidget QPushButton#okBtn:hover
+{
+	background:#68a6fb;
+}
+
+imagesearcher--InfoWidget QPushButton#okBtn:pressed
+{
+	background:#3c81e0;
+}
+
+imagesearcher--InfoWidget QPushButton#okBtn:disabled
+{
+	background:#c6ddfd;
+}
+
+imagesearcher--InfoWidget QPushButton#ignoreBtn,
+imagesearcher--InfoWidget QPushButton#cancelBtn
+{
+	border:1px solid #b3b3b3;
+	border-radius : 2px;
+	color:#666666;
+	font-weight:bold;
+	background:#ffffff;
+}
+
+imagesearcher--InfoWidget QPushButton#ignoreBtn:hover,
+imagesearcher--InfoWidget QPushButton#cancelBtn:hover
+{
+	background:#f5f5f5;
+}
+
+imagesearcher--InfoWidget QPushButton#ignoreBtn:pressed,
+imagesearcher--InfoWidget QPushButton#cancelBtn:pressed
+{
+	background:#ebebeb;
+}
+
+imagesearcher--InfoWidget QPushButton#ignoreBtn:disabled,
+imagesearcher--InfoWidget QPushButton#cancelBtn:disabled
+{
+	background:#f5f5f5;
+}
+
+imagesearcher--InfoWidget QPushButton#closeBtn
+{
+	border-image:url(:/ImageSearcher/images/common/close.png);
+}
+
+imagesearcher--InfoWidget QPushButton#closeBtn:hover
+{
+	background : #d9e9fe;
+	border-image:url(:/ImageSearcher/images/common/close.png);
+}
+
+imagesearcher--InfoWidget QPushButton#closeBtn:pressed
+{
+	background : #d2e5fe;
+	border-image:url(:/ImageSearcher/images/common/close.png);
+}
+
+
+imagesearcher--InfoWidget QCheckBox
+{
+	spacing : 9px;
+	font-family: Microsoft YaHei;
+	font-size: 12px;
+}
+
+imagesearcher--InfoWidget QCheckBox::indicator
+{
+	width : 14px;
+	height : 14px;
+}
+
+imagesearcher--InfoWidget QCheckBox::indicator:unchecked
+{
+	border-image:url(:/ImageSearcher/images/common/close.png);
+}
+
+imagesearcher--InfoWidget QCheckBox::indicator:checked
+{
+	border-image:url(:/ImageSearcher/images/common/close.png);
+}
+
+
+imagesearcher--InfoWidget QLineEdit
+{
+	padding-left : 8px;
+}
+
+imagesearcher--InfoWidget QLineEdit:enabled,
+imagesearcher--InfoWidget QLineEdit:enabled
+{
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+}
+
+imagesearcher--InfoWidget QLineEdit:enabled:hover,
+imagesearcher--InfoWidget QLineEdit:enabled:hover
+{
+	border: 1px solid #666666;
+	border-radius: 2px;
+}
+
+imagesearcher--InfoWidget QLineEdit:enabled:focus,QLineEdit:enabled:hover,
+imagesearcher--InfoWidget QLineEdit:enabled:focus,QLineEdit:enabled:hover
+{
+	border: 1px solid #4390fa;
+	border-radius: 2px;
+}
+

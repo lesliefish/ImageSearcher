@@ -21,6 +21,7 @@ namespace imagesearcher
         virtual void mouseMoveEvent(QMouseEvent *e);
         virtual void mouseReleaseEvent(QMouseEvent *event);
 
+        virtual void paintEvent(QPaintEvent *event);
     private:
         Ui::FramelessWidget *ui;
     };

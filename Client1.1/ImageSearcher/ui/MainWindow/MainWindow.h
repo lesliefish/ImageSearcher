@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ui/Public/InfoWidget/InfoTextWidget.h"
 #include "FramelessWidget.h"
 #include <QWidget>
 #include <QTcpSocket>
@@ -28,7 +29,7 @@ namespace imagesearcher
         void showResult(const QStringList paths);
     private:
         Ui::MainWindow *ui;
-
+        InfoTextWidget* infoTextWidget{ nullptr };
         QString m_curImagePath{};
         QTcpSocket m_socket;
     };

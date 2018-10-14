@@ -1,6 +1,17 @@
 <RCC>
-    <qresource prefix="/ImageSearcher"/>
+    <qresource prefix="/ImageSearcher">
+        <file>images/common/background.jpg</file>
+        <file>images/common/background.png</file>
+        <file>images/common/close.png</file>
+        <file>images/common/help.png</file>
+        <file>images/common/main.png</file>
+        <file>images/common/max.png</file>
+        <file>images/common/min.png</file>
+        <file>images/common/normal.png</file>
+        <file>images/common/uploadimage.png</file>
+    </qresource>
     <qresource prefix="/qss">
         <file>ImageSearcher.qss</file>
+        <file>InfoWidget.qss</file>
     </qresource>
 </RCC>
