@@ -5,10 +5,10 @@
     ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/1.png)
    <br>  <br>
   2、测试效果 <br><br>
-   CEDD算法<br><br>
+   测试1<br><br>
    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/2.png)
    <br>  <br>
-   CEDD算法<br><br>
+   测试2<br><br>
      ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/3.png)
     <br>  <br>
    索引过程<br><br>
