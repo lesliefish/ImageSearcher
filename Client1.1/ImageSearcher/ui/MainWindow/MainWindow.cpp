@@ -93,6 +93,7 @@ namespace imagesearcher
 
             QString action = "SEARCH";
             QString depends = ui->searchTypeCombo->currentText().trimmed();
+            depends = "CEDD";
             sendRequest(action, m_curImagePath, depends);
 
             ui->tableWidget->clear();

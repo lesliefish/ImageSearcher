@@ -8,3 +8,4 @@ Client/ImageSearch.vcxproj.user
 *.db
 Client1.1/.vs/ImageSearcher/v14/.suo
 *.opendb
+*.class
