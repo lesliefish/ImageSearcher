@@ -30,6 +30,11 @@ namespace imagesearcher
 
     void FramelessWidget::mouseMoveEvent(QMouseEvent *event)
     {
+        if (isMaximized())
+        {
+            return;
+        }
+
         if ((event->buttons() & Qt::LeftButton) && m_dragWindow)
         {
             move(event->globalPos() - m_pointMove);

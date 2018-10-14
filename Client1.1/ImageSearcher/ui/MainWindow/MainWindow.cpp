@@ -25,23 +25,14 @@ namespace imagesearcher
         infoTextWidget->setOKBtnVisible(false);
         infoTextWidget->setCancelBtnText(tr("Close"));
 
+        initCommboxDatas();
+
         ui->tableWidget->setRowCount(10);
         ui->tableWidget->setColumnCount(6);
         ui->tableWidget->horizontalHeader()->hide();
         ui->tableWidget->verticalHeader()->hide();
         ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-        int itemHeight = this->width() / 6;
-        for (int i = 0; i < ui->tableWidget->rowCount(); ++i)
-        {
-            ui->tableWidget->setRowHeight(i, itemHeight);
-            if (i < ui->tableWidget->columnCount())
-            {
-                ui->tableWidget->setColumnWidth(i, itemHeight);
-            }
-        }
-
 
         // 加载皮肤样式qss
         QString qssPath{ ":/qss/ImageSearcher.qss" };
@@ -52,6 +43,20 @@ namespace imagesearcher
         }
     }
 
+    void MainWindow::initCommboxDatas()
+    {
+        QStringList items
+        { "AutoColorCorrelogram","BinaryPatternsPyramid", "CEDD","ColorLayout", 
+            "EdgeHistogram","FCTH", "FuzzyColorHistogram","Gabor", "JCD",
+            "JpegCoefficientHistogram","LocalBinaryPatterns","LuminanceLayout", "OpponentHistogram",
+            "PHOG", "RotationInvariantLocalBinaryPatterns","ScalableColor", 
+            "SimpleColorHistogram","Tamura", "ALL"
+        };
+        ui->indexComboBox->addItems(items);
+        items.removeLast();
+        ui->searchComboBox->addItems(items);
+    }
+
     /** @fn     imagesearcher::MainWindow::initConnection
      *  @brief  
      *  @return void 
@@ -59,56 +64,15 @@ namespace imagesearcher
     void MainWindow::initConnection()
     {
         connect(ui->closeBtn, &QPushButton::clicked, [&] { close(); });
+        connect(ui->normalBtn, &QPushButton::clicked, [&] { isMaximized() ? showNormal() : showMaximized(); });
         connect(ui->minBtn, &QPushButton::clicked, [&] { showMinimized(); });
         connect(&m_socket, &QTcpSocket::readyRead, [&] {recieveFromSever(); });
-        connect(infoTextWidget, &InfoTextWidget::signalOK, [&] {close(); });
-
-        connect(ui->openFileBtn, &QPushButton::clicked, [&]
-        {
-            QString openDir{""};
-            if (!m_curImagePath.isEmpty())
-            {
-                int dotPos = m_curImagePath.lastIndexOf("/");
-                openDir = m_curImagePath.left(dotPos + 1);
-            }
-            QString path = QFileDialog::getOpenFileName(this, tr("Open File"), openDir, tr("Image Files (*.jpg *.png)"));
-            if (path.isEmpty())
-            {
-                return;
-            }
-
-            QString labelImageSetQss = QString("QLabel{border-image : url(%1);}").arg(path);
-            ui->selectedImageLabel->setStyleSheet(labelImageSetQss);
-            ui->selectedImageLabel->clear();
-
-            m_curImagePath = path;
-        });
-
+        // 选择一张图片
+        connect(ui->openFileBtn, &QPushButton::clicked, [&] { chooseFile(); });
         // 检索
-        connect(ui->searchBtn, &QPushButton::clicked, [&]
-        {
-            if (m_curImagePath.isEmpty())
-            {
-                infoTextWidget->setTipText(tr("Please select image file first."));
-                infoTextWidget->show();
-                return;
-            }
-
-            QString action = "SEARCH";
-            QString depends = ui->searchTypeCombo->currentText().trimmed();
-            depends = "CEDD";
-            sendRequest(action, m_curImagePath, depends);
-
-            ui->tableWidget->clear();
-        });
-
-        // 索引
-        connect(ui->createIndexBtn, &QPushButton::clicked, [&]
-        {
-            QString action = "INDEX";
-            QString depends = "CEDD";
-            sendRequest(action, "C:", depends);
-        });
+        connect(ui->searchBtn, &QPushButton::clicked, [&] {search(); });
+        // 创建索引
+        connect(ui->createIndexBtn, &QPushButton::clicked, [&] {createIndex();});
     }
 
     /** @fn     imagesearcher::MainWindow::sendRequest
@@ -149,6 +113,8 @@ namespace imagesearcher
             // 索引完毕消息
             infoTextWidget->setTipText(tr("Index over!"));
             infoTextWidget->show();
+            ui->createIndexBtn->setEnabled(true);
+            ui->createIndexBtn->setText(tr("Create Index"));
             return;
         }
 
@@ -161,9 +127,33 @@ namespace imagesearcher
         }
     }
 
+    void MainWindow::search()
+    {
+        if (m_curImagePath.isEmpty())
+        {
+            infoTextWidget->setTipText(tr("Please select image file first."));
+            infoTextWidget->show();
+            return;
+        }
+
+        QString action = "SEARCH";
+        QString depends = ui->searchComboBox->currentText().trimmed();
+        sendRequest(action, m_curImagePath, depends);
+    }
+
+    void MainWindow::createIndex()
+    {
+        QString action = "INDEX";
+        QString depends = ui->indexComboBox->currentText().trimmed();
+        sendRequest(action, "", depends);
+
+        ui->createIndexBtn->setText(tr("Creating index..."));
+        ui->createIndexBtn->setEnabled(false);
+    }
+
     /** @fn     imagesearcher::MainWindow::showResult
-     *  @brief  genju jiansuojieguo xianshichulai
-     *  @param  const QStringList paths
+     *  @brief  根据检索结果显示出来
+     *  @param  const QStringList paths 文件路径
      *  @return void
      */
     void MainWindow::showResult(const QStringList paths)
@@ -189,6 +179,46 @@ namespace imagesearcher
                 }
             }
         }
+    }
+
+    void MainWindow::chooseFile()
+    {
+        QString openDir{ "" };
+        if (!m_curImagePath.isEmpty())
+        {
+            int dotPos = m_curImagePath.lastIndexOf("/");
+            openDir = m_curImagePath.left(dotPos + 1);
+        }
+        QString path = QFileDialog::getOpenFileName(this, tr("Open File"), openDir, tr("Image Files (*.jpg *.png)"));
+        if (path.isEmpty())
+        {
+            return;
+        }
+
+        QString labelImageSetQss = QString("QLabel{border-image : url(%1);}").arg(path);
+        ui->selectedImageLabel->setStyleSheet(labelImageSetQss);
+        ui->selectedImageLabel->setToolTip(path);
+        ui->selectedImageLabel->clear();
+
+        m_curImagePath = path;
+    }
+
+    void MainWindow::resizeEvent(QResizeEvent * event)
+    {
+        if (ui != nullptr)
+        {
+            int itemHeight = (this->width() - ui->operateWidget->width()) / 6;
+            for (int i = 0; i < ui->tableWidget->rowCount(); ++i)
+            {
+                ui->tableWidget->setRowHeight(i, itemHeight);
+                if (i < ui->tableWidget->columnCount())
+                {
+                    ui->tableWidget->setColumnWidth(i, itemHeight);
+                }
+            }
+        }
+
+        return FramelessWidget::resizeEvent(event);
     }
 
 }

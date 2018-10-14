@@ -19,14 +19,25 @@ namespace imagesearcher
     private:
         // 初始化界面
         void initUi();
+        // 初始化索引/检索依据数据
+        void initCommboxDatas();
         // 初始化信号槽
         void initConnection();
         // 发送请求
         void sendRequest(const QString& action, const QString& filePath, const QString& depends);
         // 接收请求
         void recieveFromSever();
-        // show result 
+        // 检索
+        void search();
+        // 创建索引
+        void createIndex();
+        // 显示搜索结果
         void showResult(const QStringList paths);
+        // 选择文件
+        void chooseFile();
+
+    protected:
+        virtual void resizeEvent(QResizeEvent* event);
     private:
         Ui::MainWindow *ui;
         InfoTextWidget* infoTextWidget{ nullptr };

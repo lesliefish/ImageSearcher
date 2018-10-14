@@ -53,12 +53,10 @@ imagesearcher--MainWindow QWidget#titleWidget
 	outline : none;
 	color : #ffffff;
 	border-bottom:1px solid #cccccc;
-	border-image:url(:/ImageSearcher/images/common/background.png);
 }
 
 imagesearcher--MainWindow QWidget#operateWidget
 {
-	border-image:url(:/ImageSearcher/images/common/background.png);
 }
 
 imagesearcher--MainWindow  QPushButton#closeBtn,
