@@ -1,11 +1,9 @@
 package lei.yu.task;
 
-import lei.yu.imagesearcher.DependsType;
-import lei.yu.imagesearcher.Searcher;
+import lei.yu.mainsearcher.DependsType;
+import lei.yu.mainsearcher.Searcher;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -18,8 +16,17 @@ public class Task implements Callable<Boolean> {
         this.socket = socket;
     }
 
-    public ArrayList<String> doSearch(String path, DependsType type) {
+    public ArrayList<String> doSearch(String path, String typeStr) {
         Searcher searcher = new Searcher();
+        DependsType type = null;
+        switch (typeStr) {
+            case "":
+            default: {
+                type = DependsType.CEDD;
+            }
+        }
+
+
         return searcher.doSearch(path, type, 2);
     }
 
@@ -39,10 +46,24 @@ public class Task implements Callable<Boolean> {
             }
 
             if (datas[0].equals("SEARCH")) {
+                // 执行检索
                 System.out.println("It is a search request.");
                 String path = datas[1];
                 String dependType = datas[2];
+                ArrayList<String> list = doSearch(path, dependType);
+
+                String str = "";
+                for (int i = 0; i < list.size(); i++) {
+                    str += list.get(i) + "CSU";
+                }
+                System.out.println("Send String is: " + str);
+                BufferedWriter outBuffer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
+                if (str.isEmpty()){
+                    str = "999999";
+                }
+                outBuffer.write(str);
             } else if (datas[0].equals("INDEX")) {
+                // 执行索引
                 System.out.println("It is a create index request.");
             }
 
