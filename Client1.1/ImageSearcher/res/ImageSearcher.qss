@@ -33,6 +33,7 @@ imagesearcher--MainWindow  QLabel#titleLabel
 {
 	color : #ffffff;
 	font-size: 16px;
+	border : none;
 }
 
 imagesearcher--MainWindow  QPushButton#closeBtn:hover,

@@ -53,6 +53,9 @@
     <Filter Include="Source Files\res">
       <UniqueIdentifier>{6402192c-86b8-4e67-a91d-2d8980123453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ui\Public\InfoWidget">
+      <UniqueIdentifier>{cb153215-2c91-4598-a62e-059439dbb8cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,6 +82,24 @@
     <ClCompile Include="GeneratedFiles\qrc_ImageSearcher.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="ui\Public\InfoWidget\InfoTextWidget.cpp">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_InfoTextWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_InfoTextWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\Public\InfoWidget\InfoWidget.cpp">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_InfoWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_InfoWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ui\MainWindow\MainWindow.h">
@@ -96,12 +117,30 @@
     <CustomBuild Include="res\ImageSearcher.qrc">
       <Filter>Source Files\res</Filter>
     </CustomBuild>
+    <CustomBuild Include="ui\Public\InfoWidget\InfoTextWidget.h">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\Public\InfoWidget\InfoTextWidget.ui">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\Public\InfoWidget\InfoWidget.h">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\Public\InfoWidget\InfoWidget.ui">
+      <Filter>Source Files\ui\Public\InfoWidget</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_FramelessWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_InfoTextWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_InfoWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

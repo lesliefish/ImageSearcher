@@ -4,11 +4,6 @@
 
 namespace imagesearcher
 {
-    namespace
-    {
-        const int kItemHeight = 110;
-    }
-
     MainWindow::MainWindow(QWidget *parent)
         : FramelessWidget(parent)
     {
@@ -26,7 +21,6 @@ namespace imagesearcher
 
     void MainWindow::initUi()
     {
-
         ui->tableWidget->setRowCount(10);
         ui->tableWidget->setColumnCount(6);
         ui->tableWidget->horizontalHeader()->hide();
@@ -34,12 +28,13 @@ namespace imagesearcher
         ui->tableWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         ui->tableWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+        int itemHeight = this->width() / 6;
         for (int i = 0; i < ui->tableWidget->rowCount(); ++i)
         {
-            ui->tableWidget->setRowHeight(i, kItemHeight);
+            ui->tableWidget->setRowHeight(i, itemHeight);
             if (i < ui->tableWidget->columnCount())
             {
-                ui->tableWidget->setColumnWidth(i, kItemHeight);
+                ui->tableWidget->setColumnWidth(i, itemHeight);
             }
         }
 
