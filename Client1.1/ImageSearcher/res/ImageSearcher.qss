@@ -1,0 +1,84 @@
+imagesearcher--MainWindow QWidget
+{
+	border:1px solid #666666;
+	background:#FFFFFF;
+	font-family: Microsoft YaHei;
+	font-size: 12px;
+	outline : none;
+}
+
+imagesearcher--MainWindow QPushButton,
+imagesearcher--MainWindow QLabel
+{	
+	border : 1px solid #cccccc;
+	background:transparent;
+	font-family: Microsoft YaHei;
+	border-radius : 2px;
+}
+
+imagesearcher--MainWindow QWidget#titleWidget
+{
+	border:none;
+	background: #333333;
+	font-family: Microsoft YaHei;
+	font-size: 12px;
+	outline : none;
+	color : #ffffff;
+}
+
+imagesearcher--MainWindow  QPushButton#closeBtn,
+imagesearcher--MainWindow  QPushButton#minBtn,
+imagesearcher--MainWindow  QPushButton#aboutBtn,
+imagesearcher--MainWindow  QLabel#titleLabel
+{
+	color : #ffffff;
+	font-size: 16px;
+}
+
+imagesearcher--MainWindow  QPushButton#closeBtn:hover,
+imagesearcher--MainWindow  QPushButton#minBtn:hover,
+imagesearcher--MainWindow  QPushButton#aboutBtn:hover
+{
+	background : #d9e9fe;
+}
+
+imagesearcher--MainWindow  QPushButton#closeBtn:pressed,
+imagesearcher--MainWindow  QPushButton#minBtn:pressed,
+imagesearcher--MainWindow  QPushButton#aboutBtn:hover
+{
+	background : #d2e5fe;
+}
+
+
+imagesearcher--MainWindow QComboBox
+{
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+}
+
+imagesearcher--MainWindow QComboBox::drop-down,
+imagesearcher--MainWindow QComboBox::drop-down
+{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 30px;
+	border-left-width: 0px;
+	border-left-color: gray;
+	border-left-style: solid;
+	border-top-right-radius: 3px; 
+	border-bottom-right-radius: 3px;
+}
+
+imagesearcher--MainWindow QComboBox::down-arrow,
+imagesearcher--MainWindow QComboBox::down-arrow
+{
+	background : transparent;
+	border:none;
+}
+
+imagesearcher--MainWindow QComboBox::down-arrow:hover,
+imagesearcher--MainWindow QComboBox::down-arrow:hover
+{
+	background : transparent;
+	border:none;
+}

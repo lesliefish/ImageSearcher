@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/ImageSearcher"/>
+    <qresource prefix="/qss">
+        <file>ImageSearcher.qss</file>
+    </qresource>
+</RCC>

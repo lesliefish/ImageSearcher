@@ -4,3 +4,4 @@ Client/ImageSearch.VC.db
 Client/.vs/ImageSearch/v14/.suo
 Client/ImageSearch.vcxproj.user
 *.log
+*.user
