@@ -1,4 +1,4 @@
-package lei.yu.mainsearcher;
+package lei.yu.imagesearch;
 
 public enum DependsType {
     AutoColorCorrelogram,
@@ -18,5 +18,6 @@ public enum DependsType {
     RotationInvariantLocalBinaryPatterns,
     ScalableColor,
     SimpleColorHistogram,
-    Tamura
+    Tamura,
+    ALL
 }

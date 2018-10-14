@@ -1,7 +1,8 @@
 package lei.yu.task;
 
-import lei.yu.mainsearcher.DependsType;
-import lei.yu.mainsearcher.Searcher;
+import lei.yu.imagesearch.DependsType;
+import lei.yu.imagesearch.IndexCreater;
+import lei.yu.imagesearch.Searcher;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,24 +11,91 @@ import java.util.concurrent.Callable;
 
 public class Task implements Callable<Boolean> {
 
+    // 将和客户端通信的socket传递进来
     private Socket socket;
 
     public Task(Socket socket) {
         this.socket = socket;
     }
 
-    public ArrayList<String> doSearch(String path, String typeStr) {
-        Searcher searcher = new Searcher();
+    // 根据字符串获取检索/索引类型
+    DependsType getTypeByString(String str) {
         DependsType type = null;
-        switch (typeStr) {
-            case "":
-            default: {
+        switch (str) {
+            case "AutoColorCorrelogram":
+                type = DependsType.AutoColorCorrelogram;
+                break;
+            case "BinaryPatternsPyramid":
+                type = DependsType.BinaryPatternsPyramid;
+                break;
+            case "CEDD":
                 type = DependsType.CEDD;
-            }
+                break;
+            case "ColorLayout":
+                type = DependsType.ColorLayout;
+                break;
+            case "EdgeHistogram":
+                type = DependsType.EdgeHistogram;
+                break;
+            case "FCTH":
+                type = DependsType.FCTH;
+                break;
+            case "FuzzyColorHistogram":
+                type = DependsType.FuzzyColorHistogram;
+                break;
+            case "Gabor":
+                type = DependsType.Gabor;
+                break;
+            case "JCD":
+                type = DependsType.JCD;
+                break;
+            case "JpegCoefficientHistogram":
+                type = DependsType.JpegCoefficientHistogram;
+                break;
+            case "LocalBinaryPatterns":
+                type = DependsType.LocalBinaryPatterns;
+                break;
+            case "LuminanceLayout":
+                type = DependsType.LuminanceLayout;
+                break;
+            case "OpponentHistogram":
+                type = DependsType.OpponentHistogram;
+                break;
+            case "PHOG":
+                type = DependsType.PHOG;
+                break;
+            case "RotationInvariantLocalBinaryPatterns":
+                type = DependsType.RotationInvariantLocalBinaryPatterns;
+                break;
+            case "ScalableColor":
+                type = DependsType.ScalableColor;
+                break;
+            case "SimpleColorHistogram":
+                type = DependsType.SimpleColorHistogram;
+                break;
+            case "Tamura":
+                type = DependsType.Tamura;
+                break;
+            default:
+                type = DependsType.ALL;
+                break;
         }
 
+        return type;
+    }
 
-        return searcher.doSearch(path, type, 2);
+    // 检索事件
+    public ArrayList<String> doSearch(String path, String typeStr) {
+        Searcher searcher = new Searcher();
+        return searcher.doSearch(path, getTypeByString(typeStr), 30);
+    }
+
+    // 索引操作
+    public void doIndex(String imagesPath, String typeString) {
+        IndexCreater indexCreater = new IndexCreater();
+        DependsType type = null;
+
+        indexCreater.doCreateIndex(imagesPath, getTypeByString(typeString));
     }
 
     @Override
@@ -40,31 +108,35 @@ public class Task implements Callable<Boolean> {
             String[] datas = recvMessage.split("CSU");
 
             if (datas.length != 3) {
-                System.out.println("data from client is invalid. params count must be 3. but recieve is " + datas.length);
+                System.out.println("客户端发送数据有误. 传入参数必须为4个. 但是实际上是" + datas.length);
                 this.socket.close();
                 return false;
             }
 
             if (datas[0].equals("SEARCH")) {
                 // 执行检索
-                System.out.println("It is a search request.");
+                System.out.println("接收到搜索请求：");
                 String path = datas[1];
                 String dependType = datas[2];
                 ArrayList<String> list = doSearch(path, dependType);
 
-                String str = "";
+                String sendStr = "";
                 for (int i = 0; i < list.size(); i++) {
-                    str += list.get(i) + "CSU";
+                    sendStr += list.get(i) + "CSU";
                 }
-                System.out.println("Send String is: " + str);
+                System.out.println("发送给客户端的字符串是: " + sendStr);
                 BufferedWriter outBuffer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
-                if (str.isEmpty()){
-                    str = "999999";
+                if (sendStr.isEmpty()) {
+                    System.out.println("search result is empty.");
                 }
-                outBuffer.write(str);
+                outBuffer.write(sendStr);
+
             } else if (datas[0].equals("INDEX")) {
                 // 执行索引
                 System.out.println("It is a create index request.");
+                String sendStr = "Index over!";
+                BufferedWriter outBuffer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
+                outBuffer.write(sendStr);
             }
 
             this.socket.close();

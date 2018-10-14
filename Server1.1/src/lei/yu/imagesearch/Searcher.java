@@ -1,4 +1,4 @@
-package lei.yu.mainsearcher;
+package lei.yu.imagesearch;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -145,13 +145,13 @@ public class Searcher {
                     break;
             }
 
-            // searching with a image file ...
+            // 通过指定的一张图 检索相应的最相似结果
             ImageSearchHits hits = imageSearcher.search(img, indexReader);
-            // searching with a Lucene document instance ...
+
             for (int i = 0; i < hits.length(); i++) {
                 String fileName = indexReader.document(hits.documentID(i)).getValues(DocumentBuilder.FIELD_NAME_IDENTIFIER)[0];
                 System.out.println(hits.score(i) + ": \t" + fileName);
-                searchList.add(fileName);//加入结果列表
+                searchList.add(fileName);   //将文件名加入结果列表
             }
             System.out.println("-------------检索完毕------------");
         }
