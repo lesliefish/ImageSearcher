@@ -62,7 +62,13 @@ namespace imagesearcher
 
         connect(ui->openFileBtn, &QPushButton::clicked, [&]
         {
-            QString path = QFileDialog::getOpenFileName(this, tr("Open File"), "/", tr("Image Files (*.jpg *.png)"));
+            QString openDir{""};
+            if (!m_curImagePath.isEmpty())
+            {
+                int dotPos = m_curImagePath.lastIndexOf("/");
+                openDir = m_curImagePath.left(dotPos + 1);
+            }
+            QString path = QFileDialog::getOpenFileName(this, tr("Open File"), openDir, tr("Image Files (*.jpg *.png)"));
             if (path.isEmpty())
             {
                 return;
