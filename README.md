@@ -14,7 +14,7 @@
    索引过程<br><br>
    ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/4.png)
     <br>  <br>
-    PHOG算法<br><br>
+    CEDD算法<br><br>
     ![image](https://github.com/lesliefish/ImageSearcher/blob/master/pic/5.png)
 
 ### 服务端 
