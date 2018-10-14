@@ -22,6 +22,8 @@ namespace imagesearcher
     void MainWindow::initUi()
     {
         infoTextWidget = new InfoTextWidget;
+        infoTextWidget->setOKBtnVisible(false);
+        infoTextWidget->setCancelBtnText(tr("Close"));
 
         ui->tableWidget->setRowCount(10);
         ui->tableWidget->setColumnCount(6);
@@ -59,6 +61,7 @@ namespace imagesearcher
         connect(ui->closeBtn, &QPushButton::clicked, [&] { close(); });
         connect(ui->minBtn, &QPushButton::clicked, [&] { showMinimized(); });
         connect(&m_socket, &QTcpSocket::readyRead, [&] {recieveFromSever(); });
+        connect(infoTextWidget, &InfoTextWidget::signalOK, [&] {close(); });
 
         connect(ui->openFileBtn, &QPushButton::clicked, [&]
         {
@@ -103,8 +106,8 @@ namespace imagesearcher
         connect(ui->createIndexBtn, &QPushButton::clicked, [&]
         {
             QString action = "INDEX";
-            QString depends = ui->searchTypeCombo->currentText().trimmed();
-            sendRequest(action, m_curImagePath, depends);
+            QString depends = "CEDD";
+            sendRequest(action, "C:", depends);
         });
     }
 
@@ -118,7 +121,7 @@ namespace imagesearcher
     void MainWindow::sendRequest(const QString& action, const QString& filePath, const QString& depends)
     {
         m_socket.connectToHost("127.0.0.1", 12345);
-        QString sendStr = action + "CSU" + filePath + "CSU" + depends + "CSU" + "\n";
+        QString sendStr = action + "-CSU-" + filePath + "-CSU-" + depends + "-CSU-" + "\n";
         bool connected = m_socket.waitForConnected(5000); // 超时5秒
 
         if (!connected)
@@ -129,8 +132,7 @@ namespace imagesearcher
             return;
         }
 
-        m_socket.write(sendStr.toStdString().c_str(), sendStr.size());
-        m_socket.waitForBytesWritten();
+        m_socket.write(sendStr.toUtf8().data(), sendStr.toUtf8().size());
     }
 
     /** @fn     imagesearcher::MainWindow::recieveFromSever
@@ -142,15 +144,16 @@ namespace imagesearcher
         QString recievedString = m_socket.readAll();
         m_socket.disconnected();
 
-        if (recievedString.trimmed().compare("Index over") == 0)
+        if (recievedString.trimmed().compare("Index over!") == 0)
         {
             // 索引完毕消息
-
+            infoTextWidget->setTipText(tr("Index over!"));
+            infoTextWidget->show();
             return;
         }
 
         // 检索出的图像结果
-        QStringList paths = recievedString.split("CSU");
+        QStringList paths = recievedString.split("-CSU-");
         if (!paths.empty())
         {
             paths.removeLast();
@@ -180,6 +183,10 @@ namespace imagesearcher
                 label->setToolTip(paths[k] + "");
                 ui->tableWidget->setCellWidget(i, j, label);
                 k++;
+                if (k == paths.size()) 
+                {
+                    return;
+                }
             }
         }
     }

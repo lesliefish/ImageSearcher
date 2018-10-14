@@ -9,3 +9,11 @@ Client/ImageSearch.vcxproj.user
 Client1.1/.vs/ImageSearcher/v14/.suo
 *.opendb
 *.class
+*.tlog
+*.obj
+*.pdb
+Server1.1/IndexPath/CEDD/_2.cfe
+*.cfs
+*.si
+Server1.1/IndexPath/CEDD/segments_a
+Server1.1/IndexPath/CEDD/write.lock

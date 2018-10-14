@@ -195,7 +195,5 @@ public class IndexCreater {
         } else {
             creatIndex(imagesPath, type);
         }
-
-        System.out.println("---------索引完毕.-------------");
     }
 }

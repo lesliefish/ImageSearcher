@@ -87,7 +87,7 @@ public class Task implements Callable<Boolean> {
     // 检索事件
     public ArrayList<String> doSearch(String path, String typeStr) {
         Searcher searcher = new Searcher();
-        return searcher.doSearch(path, getTypeByString(typeStr), 30);
+        return searcher.doSearch(path, getTypeByString(typeStr), 60); // 暂时搜索60张
     }
 
     // 索引操作
@@ -105,10 +105,11 @@ public class Task implements Callable<Boolean> {
 
             // 接收到的数据
             String recvMessage = inBuffer.readLine();
-            String[] datas = recvMessage.split("CSU");
+            System.out.println("客户端发来数据：" + recvMessage);
+            String[] datas = recvMessage.split("-CSU-");
 
             if (datas.length != 3) {
-                System.out.println("客户端发送数据有误. 传入参数必须为4个. 但是实际上是" + datas.length);
+                System.out.println("客户端发送数据有误. 传入参数必须为3个. 但是实际上是" + datas.length);
                 this.socket.close();
                 return false;
             }
@@ -122,7 +123,7 @@ public class Task implements Callable<Boolean> {
 
                 String sendStr = "";
                 for (int i = 0; i < list.size(); i++) {
-                    sendStr += list.get(i) + "CSU";
+                    sendStr += list.get(i) + "-CSU-";
                 }
                 System.out.println("发送给客户端的字符串是: " + sendStr);
                 BufferedWriter outBuffer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
@@ -130,13 +131,21 @@ public class Task implements Callable<Boolean> {
                     System.out.println("search result is empty.");
                 }
                 outBuffer.write(sendStr);
-
+                outBuffer.close(); // 一定要关闭。。
             } else if (datas[0].equals("INDEX")) {
                 // 执行索引
-                System.out.println("It is a create index request.");
+                System.out.println("接收到索引请求：");
+                String imagePath = "ImagesFolder";
+                System.out.println("索引图片路径：" + imagePath);
+                String dependType = datas[2];
+                doIndex(imagePath, dependType);
+
                 String sendStr = "Index over!";
                 BufferedWriter outBuffer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
                 outBuffer.write(sendStr);
+                outBuffer.close(); // 一定要关闭。。
+
+                System.out.println("---------索引完毕.-------------");
             }
 
             this.socket.close();
