@@ -43,6 +43,10 @@ namespace imagesearcher
         }
     }
 
+    /** @fn     imagesearcher::MainWindow::initCommboxDatas
+     *  @brief  初始化选择列表内容
+     *  @return void 
+     */
     void MainWindow::initCommboxDatas()
     {
         QStringList items
@@ -127,6 +131,10 @@ namespace imagesearcher
         }
     }
 
+    /** @fn     imagesearcher::MainWindow::search
+     *  @brief  执行检索操作
+     *  @return void 
+     */
     void MainWindow::search()
     {
         if (m_curImagePath.isEmpty())
@@ -141,6 +149,10 @@ namespace imagesearcher
         sendRequest(action, m_curImagePath, depends);
     }
 
+    /** @fn     imagesearcher::MainWindow::createIndex
+     *  @brief  创建索引文件
+     *  @return void 
+     */
     void MainWindow::createIndex()
     {
         QString action = "INDEX";
@@ -181,6 +193,10 @@ namespace imagesearcher
         }
     }
 
+    /** @fn     imagesearcher::MainWindow::chooseFile
+     *  @brief  选择一个本地文件
+     *  @return void 
+     */
     void MainWindow::chooseFile()
     {
         QString openDir{ "" };
@@ -207,7 +223,8 @@ namespace imagesearcher
     {
         if (ui != nullptr)
         {
-            int itemHeight = (this->width() - ui->operateWidget->width()) / 6;
+            // 当窗口大小更改时  更改显示的图片大小
+            int itemHeight = (this->width() - ui->operateWidget->width() - 6) / 6;
             for (int i = 0; i < ui->tableWidget->rowCount(); ++i)
             {
                 ui->tableWidget->setRowHeight(i, itemHeight);

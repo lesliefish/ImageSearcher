@@ -1,3 +1,10 @@
+/** @file   MainWindow.h
+  * @note   ³ÌÐòÖ÷´°¿Ú
+  * 
+  * @brief  
+  * @author lesliefish
+  * @date   2018/10/15
+  */
 #pragma once
 
 #include "ui/Public/InfoWidget/InfoTextWidget.h"
